@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Clock</title>
+<style>
+    body {
+    background-image: url('kayat.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #4EE2EC;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      flex-direction: column;
+    }
+    .clock-container {
+      text-align: center;
+    }
+    .clock {
+      font-size: 60px;
+      letter-spacing: 5px;
+      background-color: ;
+      padding: 20px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      margin-bottom: 10px;
+    }
+    .date {
+      font-size: 24px;
+      background-color: ;
+      padding: 10px 20px;
+      border-radius: 10px;
+      
+    }
+    /* Text Animation */
+.animated-text {
+  animation: text-pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes text-pulse {
+  0% {
+    color: lime;
+    text-shadow: 2px 2px 2px blue;
+  }
+  100% {
+    color: white; /* A brighter yellow */
+    text-shadow: 4px 4px 4px blue;
+  }
+}
+    h1 {
+        text-shadow: 4px 4px 4px blue;
+    }
+</style>
+</html>
+</head>
+<body>
+    <h1>Digital Clock</h1>
+
+  <div class="clock-container animated-text">
+    <div class="clock">
+      <span id="time"></span>
+    </div>
+    <div class="date animated-text">
+      <span id="date"></span>
+    </div>
+  </div>
+  <script>
+    function updateClockAndDate() {
+      const timeElement = document.getElementById('time');
+      const dateElement = document.getElementById('date');
+      const now = new Date();
+
+      // Time with AM/PM
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+
+      hours = hours % 12;
+      hours = hours ? hours : 12;  // the hour '0' should be '12'
+      
+      timeElement.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+      // Date and Day
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const dayOfWeek = days[now.getDay()];
+      const day = now.getDate().toString().padStart(2, '0');
+      const month = (now.getMonth() + 1).toString().padStart(2, '0');
+      const year = now.getFullYear();
+
+      dateElement.textContent = `${dayOfWeek}, ${month}/${day}/${year}`;
+    }
+
+    setInterval(updateClockAndDate, 1000);
+    updateClockAndDate();  // Initial call to display time and date immediately
+  </script>
+
+</body>
+</html>
